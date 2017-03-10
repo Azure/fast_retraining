@@ -4,9 +4,9 @@ This repo shows how to perform fast retraining with LightGBM in different busine
 
 ## Project
 
-In the folder [libs](./libs) there is the common code for the project.
-
 In the folder [experiments](./experiments) you can find the different experiments of the project.
+
+In the folder [experiment/libs](./experiment/libs) there is the common code for the project.
 
 ## Contributing
 
