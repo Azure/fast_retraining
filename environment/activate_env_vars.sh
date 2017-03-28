@@ -2,7 +2,7 @@
 
 # The location of the repository on the host machine
 REPOSPATH=$HOME'/repos/'
-export PROJECTPATH=$REPOSPATH'strata'
+export PROJECTPATH=$REPOSPATH'fast_retraining'
 
 
 # Add custom libraries to the python path
