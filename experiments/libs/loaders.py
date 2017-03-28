@@ -40,7 +40,7 @@ def load_fraud():
     pandas DataFrame
 
     """
-    return pd.read_csv(reduce(os.path.join, _FRAUD_PATH, _get_datapath))
+    return pd.read_csv(reduce(os.path.join, _FRAUD_PATH, _get_datapath()))
 
 
 def load_iot():
