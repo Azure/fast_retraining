@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import arff
 import numpy as np
-
+from libs.bci_loader import dataset_epoch_generator, test_dataset_epoch_generator, features_and_labels_from
 from functools import reduce
 
 
@@ -66,3 +66,29 @@ def load_iot():
     columns = [i[0] for i in dataset['attributes']]
     return pd.DataFrame(dataset['data'], columns=columns)
 
+
+def load_bci():
+    """ Loads BCI data
+
+    Contains measurements from 64 EEG sensors on the scalp of a single participant. 
+    The purpose of the recording is to determine from the electrical brain activity when the participant is paying attention.
+
+    Returns
+    -------
+    A tuple containing four numpy arrays
+        train features
+        trai labels
+        test features
+        test lalels
+    """
+    train_data_path = 'bci', 'train.mat'
+    test_data_path = 'bci', 'test.mat'
+    test_labels_path = 'bci', 'labels.txt'
+
+    train_gen = dataset_epoch_generator(reduce(os.path.join, train_data_path, _get_datapath()))
+    test_gen = test_dataset_epoch_generator(reduce(os.path.join, test_data_path, _get_datapath()),
+                                 reduce(os.path.join, test_labels_path, _get_datapath()))
+
+    train_X, train_y = features_and_labels_from(train_gen)    
+    test_X, test_y = features_and_labels_from(test_gen)                          
+    return train_X, train_y, test_X, test_y
