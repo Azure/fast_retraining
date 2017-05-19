@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import arff
 import numpy as np
-from libs.bci_loader import dataset_epoch_generator, test_dataset_epoch_generator, features_and_labels_from
+from experiments.libs.bci_loader import train_dataset_generator, test_dataset_generator, process_runs
 from functools import reduce
 
 
@@ -81,14 +81,6 @@ def load_bci():
         test features
         test lalels
     """
-    train_data_path = 'bci', 'train.mat'
-    test_data_path = 'bci', 'test.mat'
-    test_labels_path = 'bci', 'labels.txt'
-
-    train_gen = dataset_epoch_generator(reduce(os.path.join, train_data_path, _get_datapath()))
-    test_gen = test_dataset_epoch_generator(reduce(os.path.join, test_data_path, _get_datapath()),
-                                 reduce(os.path.join, test_labels_path, _get_datapath()))
-
-    train_X, train_y = features_and_labels_from(train_gen)    
-    test_X, test_y = features_and_labels_from(test_gen)                          
-    return train_X, train_y, test_X, test_y
+    data_path = 'bci', 'data.npz' 
+    npzfile = np.load(reduce(os.path.join, data_path, _get_datapath()))
+    return npzfile['train_X'], npzfile['train_y'], npzfile['test_X'], npzfile['test_y']
