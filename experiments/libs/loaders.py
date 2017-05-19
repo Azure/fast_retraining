@@ -2,13 +2,14 @@ import os
 import pandas as pd
 import arff
 import numpy as np
-
 from functools import reduce
+import sqlite3
 
 
 _FRAUD_PATH = 'fraud_detection', 'credit_card_fraud_kaggle', 'creditcard.csv'
 _IOT_PATH = 'iot', 'sensor_stream_berkeley', 'sensor.arff'
 _AIRLINE_PATH = 'airline', 'airline_14col.data'
+_FOOTBALL_PATH = 'football', 'database.sqlite'
 
 
 def _get_datapath():
@@ -94,4 +95,34 @@ def load_airline():
     """ 
     cols = ['Year', 'Month', 'DayofMonth', 'DayofWeek', 'CRSDepTime', 'CRSArrTime', 'UniqueCarrier', 'FlightNum', 'ActualElapsedTime', 'Origin', 'Dest', 'Distance', 'Diverted', 'ArrDelay']
     return pd.read_csv(reduce(os.path.join, _AIRLINE_PATH, _get_datapath()), names=cols)
-                      
+   
+    
+def load_football():
+    """ Loads football data
+    Dataset of football stats. +25,000 matches, +10,000 players from 11 European Countries with their lead championship
+    Seasons 2008 to 2016. It also contains players and Ttams' attributes* sourced from EA Sports' FIFA video game series,
+    including the weekly updates, team line up with squad formation (X, Y coordinates), betting odds from up to 10 
+    providers and detailed match events (goal types, possession, corner, cross, fouls, cards etc...) for +10,000 matches.
+    The meaning of the columns can be found here: http://www.football-data.co.uk/notes.txt
+    Number of attributes in each table (size of the dataframe):
+    countries (11, 2)
+    matches (25979, 115)
+    leagues (11, 3)
+    teams (299, 5)
+    players (183978, 42)
+    Link to the source: https://www.kaggle.com/hugomathien/soccer
+    
+    Returns
+    -------
+    list of pandas DataFrame
+    """
+    database_path = reduce(os.path.join, _FOOTBALL_PATH, _get_datapath())
+    with sqlite3.connect(database_path) as con:
+        countries = pd.read_sql_query("SELECT * from Country", con)
+        matches = pd.read_sql_query("SELECT * from Match", con)
+        leagues = pd.read_sql_query("SELECT * from League", con)
+        teams = pd.read_sql_query("SELECT * from Team", con)
+        players = pd.read_sql("SELECT * FROM Player_Attributes;", con)
+    return countries, matches, leagues, teams, players
+
+    
