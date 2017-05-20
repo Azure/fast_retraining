@@ -2,11 +2,12 @@ import os
 import pandas as pd
 import arff
 import numpy as np
-from experiments.libs.bci_loader import train_dataset_generator, test_dataset_generator, process_runs
 from functools import reduce
 
 
 _FRAUD_PATH = 'fraud_detection', 'credit_card_fraud_kaggle', 'creditcard.csv'
+_IOT_PATH = 'iot', 'sensor_stream_berkeley', 'sensor.arff'
+_BCI_PATH = 'bci', 'data.npz'
 
 
 def _get_datapath():
@@ -60,9 +61,9 @@ def load_iot():
     -------
     pandas DataFrame
     """
-    iot_path = 'iot', 'sensor_stream_berkeley', 'sensor.arff'
 
-    dataset = arff.load(open(reduce(os.path.join, iot_path, _get_datapath())))
+
+    dataset = arff.load(open(reduce(os.path.join, _IOT_PATH, _get_datapath())))
     columns = [i[0] for i in dataset['attributes']]
     return pd.DataFrame(dataset['data'], columns=columns)
 
@@ -81,6 +82,6 @@ def load_bci():
         test features
         test lalels
     """
-    data_path = 'bci', 'data.npz' 
-    npzfile = np.load(reduce(os.path.join, data_path, _get_datapath()))
+
+    npzfile = np.load(reduce(os.path.join, _BCI_PATH, _get_datapath()))
     return npzfile['train_X'], npzfile['train_y'], npzfile['test_X'], npzfile['test_y']
