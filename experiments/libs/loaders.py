@@ -78,9 +78,9 @@ def load_bci():
     -------
     A tuple containing four numpy arrays
         train features
-        trai labels
+        train labels
         test features
-        test lalels
+        test labels
     """
 
     npzfile = np.load(reduce(os.path.join, _BCI_PATH, _get_datapath()))
