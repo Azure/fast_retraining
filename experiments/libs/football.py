@@ -202,10 +202,13 @@ def get_match_features(match, matches, x = 10):
     result.loc[0, 'games_against_won'] = get_wins(last_matches_against, home_team)
     result.loc[0, 'games_against_lost'] = get_wins(last_matches_against, away_team)
     
+    #Add season
+    result.loc[0, 'season'] = int(match['season'].split('/')[0])
+    
     #Return match features
     return result.loc[0]
     
-def create_feables(matches, fifa, bookkeepers, get_overall = False, horizontal = True, x = 10, verbose = True):
+def create_feables(matches, fifa, bookkeepers, get_overall = False, horizontal = True, x = 10, all_leagues = True, verbose = True):
     ''' Create and aggregate features and labels for all matches. '''
 
     #Get fifa stats features
@@ -214,40 +217,29 @@ def create_feables(matches, fifa, bookkeepers, get_overall = False, horizontal =
     
     if verbose == True:
         print("Generating match features...")
-    start = time()
     
     #Get match features for all matches
     match_stats = matches.apply(lambda x: get_match_features(x, matches, x = 10), axis = 1)
     
     #Create dummies for league ID feature
-    dummies = pd.get_dummies(match_stats['league_id']).rename(columns = lambda x: 'League_' + str(x))
-    match_stats = pd.concat([match_stats, dummies], axis = 1)
-    match_stats.drop(['league_id'], inplace = True, axis = 1)
-    
-    end = time()
-    if verbose == True:
-        print("Match features generated in {:.1f} minutes".format((end - start)/60))
+    if all_leagues:
+        dummies = pd.get_dummies(match_stats['league_id']).rename(columns = lambda x: 'League_' + str(x))
+        match_stats = pd.concat([match_stats, dummies], axis = 1)
+        match_stats.drop(['league_id'], inplace = True, axis = 1)
+   
     
     if verbose == True:    
         print("Generating match labels...")
-    start = time()
     
     #Create match labels
     labels = matches.apply(get_match_label, axis = 1)
-    end = time()
-    if verbose == True:
-        print("Match labels generated in {:.1f} minutes".format((end - start)/60))
     
     if verbose == True:    
         print("Generating bookkeeper data...")
-    start = time()
     
     #Get bookkeeper quotas for all matches
     bk_data = get_bookkeeper_data(matches, bookkeepers, horizontal = True)
     bk_data.loc[:,'match_api_id'] = matches.loc[:,'match_api_id']
-    end = time()
-    if verbose == True:
-        print("Bookkeeper data generated in {:.1f} minutes".format((end - start)/60))
 
     #Merges features and labels into one frame
     features = pd.merge(match_stats, fifa_stats, on = 'match_api_id', how = 'left')
