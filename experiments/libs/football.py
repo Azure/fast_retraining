@@ -1,3 +1,5 @@
+#code from https://www.kaggle.com/airback/match-outcome-prediction-in-football
+
 import numpy as np
 import pandas as pd
 
