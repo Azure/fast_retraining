@@ -102,7 +102,7 @@ def load_airline():
 def load_football():
     """ Loads football data
     Dataset of football stats. +25,000 matches, +10,000 players from 11 European Countries with their lead championship
-    Seasons 2008 to 2016. It also contains players and Ttams' attributes* sourced from EA Sports' FIFA video game series,
+    Seasons 2008 to 2016. It also contains players attributes sourced from EA Sports' FIFA video game series,
     including the weekly updates, team line up with squad formation (X, Y coordinates), betting odds from up to 10 
     providers and detailed match events (goal types, possession, corner, cross, fouls, cards etc...) for +10,000 matches.
     The meaning of the columns can be found here: http://www.football-data.co.uk/notes.txt
