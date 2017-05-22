@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import arff
 import numpy as np
+
 from functools import reduce
 import sqlite3
 
@@ -10,6 +11,7 @@ _FRAUD_PATH = 'fraud_detection', 'credit_card_fraud_kaggle', 'creditcard.csv'
 _IOT_PATH = 'iot', 'sensor_stream_berkeley', 'sensor.arff'
 _AIRLINE_PATH = 'airline', 'airline_14col.data'
 _FOOTBALL_PATH = 'football', 'database.sqlite'
+_BCI_PATH = 'bci', 'data.npz'
 
 
 def _get_datapath():
@@ -92,11 +94,11 @@ def load_airline():
     Returns
     -------
     pandas DataFrame
-    """ 
+    """
     cols = ['Year', 'Month', 'DayofMonth', 'DayofWeek', 'CRSDepTime', 'CRSArrTime', 'UniqueCarrier', 'FlightNum', 'ActualElapsedTime', 'Origin', 'Dest', 'Distance', 'Diverted', 'ArrDelay']
     return pd.read_csv(reduce(os.path.join, _AIRLINE_PATH, _get_datapath()), names=cols)
-   
-    
+
+
 def load_football():
     """ Loads football data
     Dataset of football stats. +25,000 matches, +10,000 players from 11 European Countries with their lead championship
@@ -125,4 +127,21 @@ def load_football():
         players = pd.read_sql("SELECT * FROM Player_Attributes;", con)
     return countries, matches, leagues, teams, players
 
-    
+
+def load_bci():
+    """ Loads BCI data
+
+    Contains measurements from 64 EEG sensors on the scalp of a single participant. 
+    The purpose of the recording is to determine from the electrical brain activity when the participant is paying attention.
+
+    Returns
+    -------
+    A tuple containing four numpy arrays
+        train features
+        train labels
+        test features
+        test labels
+    """
+
+    npzfile = np.load(reduce(os.path.join, _BCI_PATH, _get_datapath()))
+    return npzfile['train_X'], npzfile['train_y'], npzfile['test_X'], npzfile['test_y']

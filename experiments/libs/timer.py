@@ -1,7 +1,6 @@
 #code based on https://github.com/miguelgfierro/codebase/ 
 
-import time
-
+from timeit import default_timer
 
 class Timer(object):
     """Timer class.
@@ -29,6 +28,9 @@ class Timer(object):
         0.0757778924471
 
     """
+    def __init__(self):
+        self._timer = default_timer
+    
     def __enter__(self):
         self.start()
         return self
@@ -38,10 +40,10 @@ class Timer(object):
 
     def start(self):
         """Start the timer."""
-        self.start = time.clock()
+        self.start = self._timer()
 
     def stop(self):
         """Stop the timer. Calculate the interval in seconds."""
-        self.end = time.clock()
+        self.end = self._timer()
         self.interval = self.end - self.start
 
