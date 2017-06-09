@@ -87,3 +87,13 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+##########
+*-Copy1.ipynb
+experiments/*.svg
+experiments/*.pk
+Untitled.ipynb
+
+
+
+
