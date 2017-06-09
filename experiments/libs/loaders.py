@@ -12,6 +12,7 @@ _IOT_PATH = 'iot', 'sensor_stream_berkeley', 'sensor.arff'
 _AIRLINE_PATH = 'airline', 'airline_14col.data'
 _FOOTBALL_PATH = 'football', 'database.sqlite'
 _BCI_PATH = 'bci', 'data.npz'
+_HIGGS_PATH = 'higgs', 'HIGGS.csv'
 
 
 def _get_datapath():
@@ -145,3 +146,27 @@ def load_bci():
 
     npzfile = np.load(reduce(os.path.join, _BCI_PATH, _get_datapath()))
     return npzfile['train_X'], npzfile['train_y'], npzfile['test_X'], npzfile['test_y']
+
+
+
+def load_higgs():
+    """ Loads HIGGS data
+    
+    Dataset of atomic particles measurements. It can be used in a classification problem to distinguish between a 
+    signal process which produces Higgs bosons and a background process which does not.
+    The data has been produced using Monte Carlo simulations. The first 21 features (columns 2-22) are kinematic 
+    properties measured by the particle detectors in the accelerator. The last seven features are functions of 
+    the first 21 features; these are high-level features derived by physicists to help discriminate between the 
+    two classes. The first column is the class label (1 for signal, 0 for background), followed by the 28 
+    features (21 low-level features then 7 high-level features): lepton pT, lepton eta, lepton phi, 
+    missing energy magnitude, missing energy phi, jet 1 pt, jet 1 eta, jet 1 phi, jet 1 b-tag, jet 2 pt, jet 2 eta, 
+    jet 2 phi, jet 2 b-tag, jet 3 pt, jet 3 eta, jet 3 phi, jet 3 b-tag, jet 4 pt, jet 4 eta, jet 4 phi, 
+    jet 4 b-tag, m_jj, m_jjj, m_lv, m_jlv, m_bb, m_wbb, m_wwbb.
+    Link to the source: https://archive.ics.uci.edu/ml/datasets/HIGGS
+    
+    Returns
+    -------
+    pandas DataFrame
+    """
+    cols = ['boson','lepton_pT','lepton_eta','lepton_phi','missing_energy_magnitude','missing_energy_phi','jet_1_pt','jet_1_eta','jet_1_phi','jet_1_b-tag','jet_2_pt','jet_2_eta','jet_2_phi','jet_2_b-tag','jet_3_pt','jet_3_eta','jet_3_phi','jet_3_b-tag','jet_4_pt','jet_4_eta','jet_4_phi','jet_4_b-tag','m_jj','m_jjj','m_lv','m_jlv','m_bb','m_wbb','m_wwbb']
+    return pd.read_csv(reduce(os.path.join, _HIGGS_PATH, _get_datapath()), names=cols)
