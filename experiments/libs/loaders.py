@@ -152,8 +152,9 @@ def load_bci():
 def load_higgs():
     """ Loads HIGGS data
     
-    Dataset of atomic particles measurements. It can be used in a classification problem to distinguish between a 
-    signal process which produces Higgs bosons and a background process which does not.
+    Dataset of atomic particles measurements. The total size of the data is 11 millions of observations. 
+    It can be used in a classification problem to distinguish between a signal process which produces Higgs 
+    bosons and a background process which does not.
     The data has been produced using Monte Carlo simulations. The first 21 features (columns 2-22) are kinematic 
     properties measured by the particle detectors in the accelerator. The last seven features are functions of 
     the first 21 features; these are high-level features derived by physicists to help discriminate between the 
