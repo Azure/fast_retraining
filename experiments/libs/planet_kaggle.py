@@ -1,6 +1,9 @@
 import os
 import numpy as np
 import glob
+from tqdm import tqdm
+from keras.preprocessing import image
+from keras.applications.imagenet_utils import preprocess_input
 
 
 def labels_from(labels_df):
@@ -54,4 +57,20 @@ def read_images(filepath, filenames):
 def chunks(l, n):
     for i in range(0, len(l), n):
         yield l[i:i + n]
+
+
+def featurise_images(model, filepath, nameformat, num_iter, batch_size=32, desc=None):
+    """ Use DL model to featurise images
+    """
+    features = list()
+    img_names = list()
+    num_list = list(num_iter)
+    num_batches = np.ceil(len(num_list)/batch_size)
+    
+    for num_chunk in tqdm(chunks(num_list, batch_size), total=num_batches, desc=desc):
+        filenames = [nameformat.format(index) for index in num_chunk]
+        batch_images = read_images(filepath, filenames)
+        img_names.extend(filenames)
+        features.extend(model.predict_on_batch(batch_images).squeeze())
+    return np.array(features), img_names
         

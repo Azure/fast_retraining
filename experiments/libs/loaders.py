@@ -2,9 +2,16 @@ import os
 import pandas as pd
 import arff
 import numpy as np
-
 from functools import reduce
 import sqlite3
+import logging
+from libs.planet_kaggle import to_multi_label_dict, get_file_count, enrich_with_feature_encoding, featurise_images
+import tensorflow as tf
+from keras.applications.resnet50 import ResNet50
+
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 _FRAUD_PATH = 'fraud_detection', 'credit_card_fraud_kaggle', 'creditcard.csv'
@@ -12,13 +19,17 @@ _IOT_PATH = 'iot', 'sensor_stream_berkeley', 'sensor.arff'
 _AIRLINE_PATH = 'airline', 'airline_14col.data'
 _FOOTBALL_PATH = 'football', 'database.sqlite'
 _BCI_PATH = 'bci', 'data.npz'
+_KAGGLE_ROOT = 'planet'
+_PLANET_KAGGLE_LABEL_CSV = 'train_v2.csv'
+_PLANET_KAGGLE_TRAIN_DIR = 'train-jpg'
+_PLANET_KAGGLE_VAL_DIR = 'validate-jpg'
 
 
 def _get_datapath():
     try:
         datapath = os.environ['MOUNT_POINT']
     except KeyError:
-        print("MOUNT_POINT not found in environment. Defaulting to /fileshare")
+        logger.info("MOUNT_POINT not found in environment. Defaulting to /fileshare")
         datapath = '/fileshare'
     return datapath
 
@@ -145,3 +156,39 @@ def load_bci():
 
     npzfile = np.load(reduce(os.path.join, _BCI_PATH, _get_datapath()))
     return npzfile['train_X'], npzfile['train_y'], npzfile['test_X'], npzfile['test_y']
+
+
+def load_planet_kaggle():
+    csv_path = reduce(os.path.join, (_KAGGLE_ROOT, _PLANET_KAGGLE_LABEL_CSV), _get_datapath())
+    train_path = reduce(os.path.join, (_KAGGLE_ROOT, _PLANET_KAGGLE_TRAIN_DIR), _get_datapath())
+    val_path = reduce(os.path.join, (_KAGGLE_ROOT, _PLANET_KAGGLE_VAL_DIR), _get_datapath())
+
+    logger.info('Reading in labels')
+    labels_df = pd.read_csv(csv_path).pipe(enrich_with_feature_encoding)
+    multi_label_dict = to_multi_label_dict(labels_df)
+    
+    nb_train_samples = get_file_count(os.path.join(train_path, '*.jpg'))
+    nb_validation_samples = get_file_count(os.path.join(val_path, '*.jpg'))
+
+    logger.debug('Number of training files {}'.format(nb_train_samples))
+    logger.debug('Number of validation files {}'.format(nb_validation_samples))
+    logger.debug('Loading model')
+
+    model = ResNet50(include_top=False)
+    train_features, train_names = featurise_images(model, 
+                                                train_path, 
+                                                'train_{}', 
+                                                    range(nb_train_samples),
+                                                    desc='Featurising training images')
+
+    validation_features, validation_names = featurise_images(model, 
+                                                val_path, 
+                                                'train_{}', 
+                                                range(nb_train_samples, nb_train_samples+nb_validation_samples),
+                                                desc='Featurising validation images')
+
+    # Prepare data
+    y_train = np.array([multi_label_dict[name] for name in train_names])
+    y_val = np.array([multi_label_dict[name] for name in validation_names])
+
+    return train_features, y_train, validation_features, y_val
