@@ -38,3 +38,20 @@ def threshold_prediction(pred_y, threshold=0.5):# TODO: Needs to be tuned?
     return pred_y > threshold
 
 
+def read_images(filepath, filenames):
+    """ Read images in batches
+    """
+    img_data = list()
+    for name in filenames:
+        img_path = os.path.join(filepath, name+'.jpg')
+        img = image.load_img(img_path, target_size=(224, 224))
+        x = image.img_to_array(img)
+        x = np.expand_dims(x, axis=0)
+        img_data.append(preprocess_input(x))
+    return np.concatenate(img_data)
+
+
+def chunks(l, n):
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
+        
