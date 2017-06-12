@@ -185,6 +185,24 @@ def load_higgs():
 
 
 def load_planet_kaggle():
+    """ Loads Planet Kaggle data
+    
+    Dataset of satellite images of the Amazon. The objective of this dataset is to label satellite image chips 
+    with atmospheric conditions and various classes of land cover/land use. Resulting algorithms will help the 
+    global community better understand where, how, and why deforestation happens all over the world. The images
+    use the GeoTiff format and each contain four bands of data: red, green, blue, and near infrared.
+    To treat the images we used transfer learning with the CNN ResNet50. The images are featurized with this
+    deep neural network. Once the features are generated we can use a boosted tree to classify them.
+    Link to the source: https://www.kaggle.com/c/planet-understanding-the-amazon-from-space/data
+    
+    Returns
+    -------
+    A tuple containing four numpy arrays
+        train_features
+        y_train
+        validation_features
+        y_val
+    """    
     csv_path = reduce(os.path.join, (_KAGGLE_ROOT, _PLANET_KAGGLE_LABEL_CSV), _get_datapath())
     train_path = reduce(os.path.join, (_KAGGLE_ROOT, _PLANET_KAGGLE_TRAIN_DIR), _get_datapath())
     val_path = reduce(os.path.join, (_KAGGLE_ROOT, _PLANET_KAGGLE_VAL_DIR), _get_datapath())
