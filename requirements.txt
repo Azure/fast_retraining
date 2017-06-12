@@ -9,3 +9,4 @@ glob2>=0.5
 ipython>=6.1.0
 tensorflow>=1.1.0
 Keras>=2.0.3
+memory-profiler>=0.47
