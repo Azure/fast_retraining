@@ -188,7 +188,13 @@ def load_planet_kaggle():
     csv_path = reduce(os.path.join, (_KAGGLE_ROOT, _PLANET_KAGGLE_LABEL_CSV), _get_datapath())
     train_path = reduce(os.path.join, (_KAGGLE_ROOT, _PLANET_KAGGLE_TRAIN_DIR), _get_datapath())
     val_path = reduce(os.path.join, (_KAGGLE_ROOT, _PLANET_KAGGLE_VAL_DIR), _get_datapath())
-
+    assert os.path.isfile(csv_path)
+    assert os.path.exists(train_path)
+    if not os.path.exists(val_path): os.mkdir(val_path)
+    if not os.listdir(val_path): 
+        logger.info('Validation folder is empty, moving files...')
+        generate_validation_files(train_path, val_path)
+    
     logger.info('Reading in labels')
     labels_df = pd.read_csv(csv_path).pipe(enrich_with_feature_encoding)
     multi_label_dict = to_multi_label_dict(labels_df)

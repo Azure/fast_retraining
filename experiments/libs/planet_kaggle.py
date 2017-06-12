@@ -2,6 +2,7 @@ import os
 import numpy as np
 import glob
 from tqdm import tqdm
+import shutil
 from keras.preprocessing import image
 from keras.applications.imagenet_utils import preprocess_input
 
@@ -73,4 +74,16 @@ def featurise_images(model, filepath, nameformat, num_iter, batch_size=32, desc=
         img_names.extend(filenames)
         features.extend(model.predict_on_batch(batch_images).squeeze())
     return np.array(features), img_names
-        
+  
+    
+def generate_validation_files(train_path, val_path, num_train = 35000):
+    """ Creates the validation files from the train files.
+    """
+    num_train_ini = get_file_count(os.path.join(train_path, '*.jpg'))
+    assert num_train_ini > num_train
+    
+    order = 'mv ' + train_path + '/train_{' + str(num_train) + '..' + str(num_train_ini) + '}.jpg ' + val_path
+    os.system(order)
+    
+    
+    
