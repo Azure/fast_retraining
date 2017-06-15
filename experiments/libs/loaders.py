@@ -2,9 +2,16 @@ import os
 import pandas as pd
 import arff
 import numpy as np
-
 from functools import reduce
 import sqlite3
+import logging
+from libs.planet_kaggle import to_multi_label_dict, get_file_count, enrich_with_feature_encoding, featurise_images
+import tensorflow as tf
+from keras.applications.resnet50 import ResNet50
+
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 _FRAUD_PATH = 'fraud_detection', 'credit_card_fraud_kaggle', 'creditcard.csv'
@@ -12,13 +19,18 @@ _IOT_PATH = 'iot', 'sensor_stream_berkeley', 'sensor.arff'
 _AIRLINE_PATH = 'airline', 'airline_14col.data'
 _FOOTBALL_PATH = 'football', 'database.sqlite'
 _BCI_PATH = 'bci', 'data.npz'
+_HIGGS_PATH = 'higgs', 'HIGGS.csv'
+_KAGGLE_ROOT = 'planet'
+_PLANET_KAGGLE_LABEL_CSV = 'train_v2.csv'
+_PLANET_KAGGLE_TRAIN_DIR = 'train-jpg'
+_PLANET_KAGGLE_VAL_DIR = 'validate-jpg'
 
 
 def _get_datapath():
     try:
         datapath = os.environ['MOUNT_POINT']
     except KeyError:
-        print("MOUNT_POINT not found in environment. Defaulting to /fileshare")
+        logger.info("MOUNT_POINT not found in environment. Defaulting to /fileshare")
         datapath = '/fileshare'
     return datapath
 
@@ -145,3 +157,88 @@ def load_bci():
 
     npzfile = np.load(reduce(os.path.join, _BCI_PATH, _get_datapath()))
     return npzfile['train_X'], npzfile['train_y'], npzfile['test_X'], npzfile['test_y']
+
+
+
+def load_higgs():
+    """ Loads HIGGS data
+    
+    Dataset of atomic particles measurements. The total size of the data is 11 millions of observations. 
+    It can be used in a classification problem to distinguish between a signal process which produces Higgs 
+    bosons and a background process which does not.
+    The data has been produced using Monte Carlo simulations. The first 21 features (columns 2-22) are kinematic 
+    properties measured by the particle detectors in the accelerator. The last seven features are functions of 
+    the first 21 features; these are high-level features derived by physicists to help discriminate between the 
+    two classes. The first column is the class label (1 for signal, 0 for background), followed by the 28 
+    features (21 low-level features then 7 high-level features): lepton pT, lepton eta, lepton phi, 
+    missing energy magnitude, missing energy phi, jet 1 pt, jet 1 eta, jet 1 phi, jet 1 b-tag, jet 2 pt, jet 2 eta, 
+    jet 2 phi, jet 2 b-tag, jet 3 pt, jet 3 eta, jet 3 phi, jet 3 b-tag, jet 4 pt, jet 4 eta, jet 4 phi, 
+    jet 4 b-tag, m_jj, m_jjj, m_lv, m_jlv, m_bb, m_wbb, m_wwbb.
+    Link to the source: https://archive.ics.uci.edu/ml/datasets/HIGGS
+    
+    Returns
+    -------
+    pandas DataFrame
+    """
+    cols = ['boson','lepton_pT','lepton_eta','lepton_phi','missing_energy_magnitude','missing_energy_phi','jet_1_pt','jet_1_eta','jet_1_phi','jet_1_b-tag','jet_2_pt','jet_2_eta','jet_2_phi','jet_2_b-tag','jet_3_pt','jet_3_eta','jet_3_phi','jet_3_b-tag','jet_4_pt','jet_4_eta','jet_4_phi','jet_4_b-tag','m_jj','m_jjj','m_lv','m_jlv','m_bb','m_wbb','m_wwbb']
+    return pd.read_csv(reduce(os.path.join, _HIGGS_PATH, _get_datapath()), names=cols)
+
+
+def load_planet_kaggle():
+    """ Loads Planet Kaggle data
+    
+    Dataset of satellite images of the Amazon. The objective of this dataset is to label satellite image chips 
+    with atmospheric conditions and various classes of land cover/land use. Resulting algorithms will help the 
+    global community better understand where, how, and why deforestation happens all over the world. The images
+    use the GeoTiff format and each contain four bands of data: red, green, blue, and near infrared.
+    To treat the images we used transfer learning with the CNN ResNet50. The images are featurized with this
+    deep neural network. Once the features are generated we can use a boosted tree to classify them.
+    Link to the source: https://www.kaggle.com/c/planet-understanding-the-amazon-from-space/data
+    
+    Returns
+    -------
+    A tuple containing four numpy arrays
+        train_features
+        y_train
+        validation_features
+        y_val
+    """    
+    csv_path = reduce(os.path.join, (_KAGGLE_ROOT, _PLANET_KAGGLE_LABEL_CSV), _get_datapath())
+    train_path = reduce(os.path.join, (_KAGGLE_ROOT, _PLANET_KAGGLE_TRAIN_DIR), _get_datapath())
+    val_path = reduce(os.path.join, (_KAGGLE_ROOT, _PLANET_KAGGLE_VAL_DIR), _get_datapath())
+    assert os.path.isfile(csv_path)
+    assert os.path.exists(train_path)
+    if not os.path.exists(val_path): os.mkdir(val_path)
+    if not os.listdir(val_path): 
+        logger.info('Validation folder is empty, moving files...')
+        generate_validation_files(train_path, val_path)
+    
+    logger.info('Reading in labels')
+    labels_df = pd.read_csv(csv_path).pipe(enrich_with_feature_encoding)
+    multi_label_dict = to_multi_label_dict(labels_df)
+    
+    nb_train_samples = get_file_count(os.path.join(train_path, '*.jpg'))
+    nb_validation_samples = get_file_count(os.path.join(val_path, '*.jpg'))
+
+    logger.debug('Number of training files {}'.format(nb_train_samples))
+    logger.debug('Number of validation files {}'.format(nb_validation_samples))
+    logger.debug('Loading model')
+
+    model = ResNet50(include_top=False)
+    train_features, train_names = featurise_images(model, 
+                                                train_path, 
+                                                'train_{}', 
+                                                    range(nb_train_samples),
+                                                    desc='Featurising training images')
+
+    validation_features, validation_names = featurise_images(model, 
+                                                val_path, 
+                                                'train_{}', 
+                                                range(nb_train_samples, nb_train_samples+nb_validation_samples),
+                                                desc='Featurising validation images')
+
+    # Prepare data
+    y_train = np.array([multi_label_dict[name] for name in train_names])
+    y_val = np.array([multi_label_dict[name] for name in validation_names])
+
+    return train_features, y_train, validation_features, y_val
