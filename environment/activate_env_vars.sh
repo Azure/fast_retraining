@@ -13,8 +13,6 @@ export PYTHONPATH=$PYTHONPATH:$PROJECTPATH # Adds the repository to the python p
 export OLD_PATH=$PATH
 export PATH=$PATH:PROJECTPATH
 
-export MOUNT_POINT=/fileshare               # The mounting location for the data
-export CACHE_DIR=$MOUNT_POINT'/cache'
-export STORAGE_URI=//migonzadldsvm2storage.file.core.windows.net/strata-fileshare
-
+# The mounting location for the data
+export MOUNT_POINT=/fileshare               
 echo Me Gusta!
