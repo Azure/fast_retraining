@@ -1,4 +1,4 @@
-# Installation and setup
+# Installation and Setup
 
 Here we present the instructions for setting up the project on an [Ubuntu Azure VM](https://azure.microsoft.com/en-us/services/virtual-machines/). The VM we used for the CPU experiments is a Standard DS15 v2 with 20 cores and 140Gb of memory. For the GPU experiments we used a NV24 with 4 NVIDIA M60 GPUs. In both machines the OS was Ubuntu 16.04. We recommend to use the [Azure Data Science VM](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft-ads.standard-data-science-vm) which comes with many machine learning tools already installed.
 
@@ -109,3 +109,10 @@ Finally, to check that the libraries are correctly installed, try to load them f
 
     python -c "import xgboost; import lightgbm"
 
+
+## Installation of bokeh functionality to export plots
+
+To generate png exports with bokeh you have to follow the instructions explained in [this link](http://bokeh.pydata.org/en/0.12.6/docs/user_guide/export.html).
+
+    sudo apt-get install npm 
+    npm install -g phantomjs-prebuilt
