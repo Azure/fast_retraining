@@ -22,6 +22,14 @@ In the folder [experiments](./experiments) you can find the different experiment
 
 In the folder [experiment/libs](./experiment/libs) there is the common code for the project.
 
+## Benchmark
+
+In the following table there are sumarized some results of the benckmarks performed in the experiments:
+
+| Dataset | Experiment | Data size | Features | time xgb | time xgb_hist | time lgb | F1 xgb | F1 xgb_hist | F1 lgb | 
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+|  |  |  |  |  |  |  |  |  |  |
+
 ## Contributing
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
