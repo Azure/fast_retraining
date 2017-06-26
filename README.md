@@ -36,6 +36,9 @@ In the following table there are sumarized some results of the benckmarks perfor
 | Airline (GPU) | [link](./experiments/06_airline_GPU.ipynb) | 115069017 | 13 | 65.04 | 27.15 | 21.35 | 0.726 | 0.738 | 0.728 |
 | HIGGS (GPU) | [link](./experiments/07_HIGGS_GPU.ipynb) | 1000000 | 28 | 107.63 | 51.26 | 28.90 | 0.770 | 0.770 | 0.766 |
 
+The CPU experiments were run on an Azure VM Standard DS15 v2 with 20 cores and 140 GB memory. The GPU experiments were run on a  Azure NV24 VM with 24 cores and 224 GB memory. The machine has NVIDIA M60 GPUs. In both cases we used Ubuntu 16.04.
+
+
 ## Contributing
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
