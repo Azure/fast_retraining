@@ -89,7 +89,7 @@ ENV/
 .ropeproject
 
 ##########
-*-Copy1.ipynb
+*-Copy*.ipynb
 experiments/*.svg
 experiments/*.pk
 Untitled.ipynb
