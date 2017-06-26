@@ -4,7 +4,6 @@ tqdm>=4.11.2
 bokeh>=0.12.6
 selenium>=3.4.3
 matplotlib>=1.5.3
-Keras>=2.0.3
 arff>=0.9
 glob2>=0.5
 ipython>=6.1.0
