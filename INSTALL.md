@@ -13,7 +13,7 @@ Create a conda environment if you haven't already done so. The command below cre
 ```bash
 conda create --name strata python=3 anaconda
 ```
-
+-
 Edit [activate_env_vars.sh](environment/activate_env_vars.sh ) and [deactivate_env_vars.sh](environment/deactivate_env_vars.sh )
 so that they contain the correct information.
 
@@ -23,7 +23,7 @@ apt-get install jq
 ```
 
 Activate the conda environment and install the requirements.
-```bash
+-```bash
 source activate strata
 pip install -r requirements.txt
 ```
@@ -33,7 +33,7 @@ Get info of current env and output to json | look for default_prefix element in 
 ```bash
 env_path=$(conda info --json | jq '.default_prefix' | tr -d '"')
 ```
-
+ 
 Make sure you are in the environment folder of the project and run the following
 ```bash
 activate_script_path=$(readlink -f activate_env_vars.sh)
@@ -86,7 +86,7 @@ If you want to build in GPU, the instructions are [here](https://github.com/dmlc
 
 To install LighGBM you can follow the [installation guide](https://github.com/Microsoft/LightGBM/wiki/Installation-Guide). To build on CPU:
 
-    git clone https://github.com/Microsoft/LightGBM ; cd LightGBM
+    git clone --recursive https://github.com/Microsoft/LightGBM ; cd LightGBM
     git checkout 73968a96829e212b333c88cd44725c8c39c03ad1
     mkdir build ; cd build
     cmake .. 
@@ -94,7 +94,7 @@ To install LighGBM you can follow the [installation guide](https://github.com/Mi
 
 To install the GPU version:
 
-    git clone https://github.com/Microsoft/LightGBM ; cd LightGBM
+    git clone --recursive https://github.com/Microsoft/LightGBM ; cd LightGBM
     git checkout 73968a96829e212b333c88cd44725c8c39c03ad1
     mkdir build ; cd build
     cmake .. -DUSE_GPU=1
