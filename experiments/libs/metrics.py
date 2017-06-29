@@ -18,6 +18,15 @@ def classification_metrics_binary_prob(y_true, y_prob):
     return report
 
 
+def classification_metrics_multilabel(y_true, y_pred, labels):
+    m_acc = accuracy_score(y_true, y_pred)
+    m_f1 = f1_score(y_true, y_pred, labels, average='weighted')
+    m_precision = precision_score(y_true, y_pred, labels, average='weighted')
+    m_recall = recall_score(y_true, y_pred, labels, average='weighted')
+    report = {'Accuracy':m_acc, 'Precision':m_precision, 'Recall':m_recall, 'F1':m_f1}
+    return report
+
+
 def binarize_prediction(y, threshold=0.5):
     y_pred = np.where(y > threshold, 1, 0)
     return y_pred
