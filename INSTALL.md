@@ -13,7 +13,7 @@ Create a conda environment if you haven't already done so. The command below cre
 ```bash
 conda create --name strata python=3 anaconda
 ```
--
+
 Edit [activate_env_vars.sh](environment/activate_env_vars.sh ) and [deactivate_env_vars.sh](environment/deactivate_env_vars.sh )
 so that they contain the correct information.
 
@@ -23,7 +23,7 @@ apt-get install jq
 ```
 
 Activate the conda environment and install the requirements.
--```bash
+```bash
 source activate strata
 pip install -r requirements.txt
 ```
