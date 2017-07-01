@@ -10,15 +10,14 @@ The installation instructions can be found [here](./INSTALL.md).
 
 ## Project
 
-In the folder [experiments](./experiments) you can find the different experiments of the project. We developed 5 experiments with the CPU versions of the libraries and 2 experiments with the GPU version.
+In the folder [experiments](./experiments) you can find the different experiments of the project. We developed 6 experiments with the CPU and GPU versions of the libraries.
 
 * Airline
 * BCI
 * Football
-* Planet Amazon
+* Planet Kaggle
 * Fraud Detection
-* Airline (GPU version)
-* HIGGS (GPU version)
+* HIGGS 
 
 In the folder [experiment/libs](./experiment/libs) there is the common code for the project.
 
@@ -34,8 +33,8 @@ In the following table there are sumarized the time results of the benckmarks pe
 | BCI (GPU) | [link](./experiments/02_BCI_GPU.ipynb) | 20497 | 2048 | 12.93 | 42.69 | 2.76 |  
 | Football | [link](./experiments/03_football.ipynb) | 19673 | 46 | 2.27 | 2.47 | 0.582 | 
 | Football (GPU) | [link](./experiments/03_football_GPU.ipynb) | 19673 | 46 | 7.09 | 4.58 | 0.97 | 
-| Planet Amazon | [link](./experiments/04_PlanetKaggle.ipynb) | 40479 | 2048 | 306.51 | 1990.16 | 204.21 | 
-| Planet Amazon (GPU) | [link](./experiments/04_PlanetKaggle_GPU.ipynb) | 40479 | 2048 | - | 2028.43 | 317.68 | 
+| Planet Kaggle | [link](./experiments/04_PlanetKaggle.ipynb) | 40479 | 2048 | 306.51 | 1990.16 | 204.21 | 
+| Planet Kaggle (GPU) | [link](./experiments/04_PlanetKaggle_GPU.ipynb) | 40479 | 2048 | - | 2028.43 | 317.68 | 
 | Fraud Detection | [link](./experiments/05_FraudDetection.ipynb) | 284807 | 30 | 4.45 | 1.20 | 0.73 |
 | Fraud Detection (GPU) | [link](./experiments/05_FraudDetection_GPU.ipynb) | 284807 | 30 | 5.80 | 1.64 | 0.29 |
 | HIGGS | [link](./experiments/06_HIGGS.ipynb) | 11000000 | 28 | 336.80 | 102.01 | 77.36 |  
@@ -48,13 +47,13 @@ In the next table we summarize the performance results.
 | Airline | [link](./experiments/01_airline.ipynb) | 115069017 | 13 | 0.698 | 0.717 | 0.694 |
 | BCI | [link](./experiments/02_BCI.ipynb) | 20497 | 2048 | 0. | 0. |  |
 | Football | [link](./experiments/03_football.ipynb) | 19673 | 46 | 0. |  |  |
-| Planet Amazon | [link](./experiments/04_PlanetKaggle.ipynb) | 40479 | 2048 | 0. | 0. | 0. |
+| Planet Kaggle | [link](./experiments/04_PlanetKaggle.ipynb) | 40479 | 2048 | 0. | 0. | 0. |
 | Fraud Detection | [link](./experiments/05_FraudDetection.ipynb) | 284807 | 30 | 0. | 0. | 0. |
 | HIGGS | [link](./experiments/06_HIGGS.ipynb) | 11000000 | 28 |  |  |  |  
 | Airline (GPU) | [link](./experiments/01_airline_GPU.ipynb) | 115069017 | 13 | 0.726 | 0.738 | 0.728 |
 | BCI (GPU) | [link](./experiments/02_BCI_GPU.ipynb) | 20497 | 2048 |  |  |  | 
 | Football (GPU) | [link](./experiments/03_football_GPU.ipynb) | 19673 | 46 |  |  |  | 
-| Planet Amazon (GPU) | [link](./experiments/04_PlanetKaggle_GPU.ipynb) | 40479 | 2048 |  |  |  | 
+| Planet Kaggle (GPU) | [link](./experiments/04_PlanetKaggle_GPU.ipynb) | 40479 | 2048 |  |  |  | 
 | Fraud Detection (GPU) | [link](./experiments/05_FraudDetection_GPU.ipynb) | 284807 | 30 |  |  |  |
 | HIGGS (GPU) | [link](./experiments/06_HIGGS_GPU.ipynb) | 1000000 | 28 | 0.770 | 0.770 | 0.766 |
 
