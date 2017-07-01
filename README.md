@@ -55,7 +55,7 @@ In the next table we summarize the performance results using the [F1-Score](http
 | Fraud Detection | [link](./experiments/05_FraudDetection.ipynb) | 284807 | 30 | 0.824 | 0.802 | 0.813 |
 | Fraud Detection (GPU) | [link](./experiments/05_FraudDetection_GPU.ipynb) | 284807 | 30 | 0.821 | 0.814 | 0.811 |
 | HIGGS | [link](./experiments/06_HIGGS.ipynb) | 11000000 | 28 | 0.756 | 0.761 | 0.761 |  
-| HIGGS (GPU) | [link](./experiments/06_HIGGS_GPU.ipynb) | 1000000 | 28 | - | 0.761 | 0.761 |
+| HIGGS (GPU) | [link](./experiments/06_HIGGS_GPU.ipynb) | 11000000 | 28 | - | 0.761 | 0.761 |
 
 The CPU experiments were run on an Azure VM Standard DS15 v2 with 20 cores and 140 GB memory. The GPU experiments were run on an Azure NV24 VM with 24 cores and 224 GB memory. The machine has 4 NVIDIA M60 GPUs. In both cases we used Ubuntu 16.04.
 
