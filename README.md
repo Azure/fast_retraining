@@ -1,8 +1,6 @@
 # Fast Retraining
 
-This repo shows how to perform fast retraining with LightGBM in different business cases.
-
-In this repo we show we compare two of the fastest boosted decision tree libraries: [XGBoost](https://github.com/dmlc/xgboost) and [LightGBM](https://github.com/microsoft/LightGBM). We will evaluate them across datasets of several domains and different sizes. 
+In this repo we compare two of the fastest boosted decision tree libraries: [XGBoost](https://github.com/dmlc/xgboost) and [LightGBM](https://github.com/microsoft/LightGBM). We will evaluate them across datasets of several domains and different sizes. 
 
 ## Installation and Setup
 
@@ -31,7 +29,7 @@ In the following table there are sumarized the time results of the benckmarks pe
 | Airline (GPU) | [link](./experiments/01_airline_GPU.ipynb) | 115069017 | 13 | 65.04 | 27.15 | 21.35 | 
 | BCI | [link](./experiments/02_BCI.ipynb) | 20497 | 2048 | 15.97 | 52.69 | 6.38 |
 | BCI (GPU) | [link](./experiments/02_BCI_GPU.ipynb) | 20497 | 2048 | 12.93 | 42.69 | 2.76 |  
-| Football | [link](./experiments/03_football.ipynb) | 19673 | 46 | 2.27 | 2.47 | 0.582 | 
+| Football | [link](./experiments/03_football.ipynb) | 19673 | 46 | 2.27 | 2.47 | 0.58 | 
 | Football (GPU) | [link](./experiments/03_football_GPU.ipynb) | 19673 | 46 | 7.09 | 4.58 | 0.97 | 
 | Planet Kaggle | [link](./experiments/04_PlanetKaggle.ipynb) | 40479 | 2048 | 306.51 | 1990.16 | 204.21 | 
 | Planet Kaggle (GPU) | [link](./experiments/04_PlanetKaggle_GPU.ipynb) | 40479 | 2048 | - | 2028.43 | 317.68 | 
