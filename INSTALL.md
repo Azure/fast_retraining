@@ -1,6 +1,6 @@
 # Installation and Setup
 
-Here we present the instructions for setting up the project on an [Ubuntu Azure VM](https://azure.microsoft.com/en-us/services/virtual-machines/). The VM we used for the CPU experiments is a Standard DS15 v2 with 20 cores and 140Gb of memory. For the GPU experiments we used a NV24 with 4 NVIDIA M60 GPUs. In both machines the OS was Ubuntu 16.04. We recommend to use the [Azure Data Science VM](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft-ads.standard-data-science-vm) which comes with many machine learning tools already installed.
+Here we present the instructions for setting up the project on an [Ubuntu Azure VM](https://azure.microsoft.com/en-us/services/virtual-machines/). The VM we used for the experiment was a NV24 with 4 NVIDIA M60 GPUs. The OS was Ubuntu 16.04. We recommend to use the [Azure Data Science VM](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/microsoft-ads.standard-data-science-vm) which comes with many machine learning tools already installed.
 
 ## Setting up the environment 
 
@@ -9,7 +9,7 @@ Clone this repo to your desired location
 git clone https://github.com/Azure/fast_retraining.git
 ```
 
-Create a conda environment if you haven't already done so. The command below creates a python 3 environment called sbsa.
+Create a conda environment if you haven't already done so. The command below creates a python 3 environment called strata.
 ```bash
 conda create --name strata python=3 anaconda
 ```
@@ -17,7 +17,7 @@ conda create --name strata python=3 anaconda
 Edit [activate_env_vars.sh](environment/activate_env_vars.sh ) and [deactivate_env_vars.sh](environment/deactivate_env_vars.sh )
 so that they contain the correct information.
 
-Install command line jason parser
+Install command line json parser
 ```bash
 apt-get install jq
 ```
@@ -33,7 +33,7 @@ Get info of current env and output to json | look for default_prefix element in 
 ```bash
 env_path=$(conda info --json | jq '.default_prefix' | tr -d '"')
 ```
- 
+
 Make sure you are in the environment folder of the project and run the following
 ```bash
 activate_script_path=$(readlink -f activate_env_vars.sh)
@@ -61,13 +61,13 @@ source activate strata
 
 ## Installation of boosted tree libraries
 
-We need to install [XGBoost](https://github.com/dmlc/xgboost) and [LightGBM](https://github.com/microsoft/LightGBM). Even though both libraries have pypi versions, for creating the experiments contained in this repo we compiled from source. 
+We need to install [XGBoost](https://github.com/dmlc/xgboost) and [LightGBM](https://github.com/microsoft/LightGBM). Even though both libraries have pypi versions, for creating the experiments contained in this repo we compiled from source.
 
 To install XGBoost you can follow the [installation guide](https://xgboost.readthedocs.io/en/latest/build.html). To build in CPU, using the specific commit we used:
 
     git clone --recursive https://github.com/dmlc/xgboost
     cd xgboost
-    git checkout 8e2a1ff2bfd29f0d08c117d617fc0837eb6796cc
+    git checkout 6776292951565c8cd72e69afd9d94de1474f00c0
     git submodule update --recursive
     make -j$(nproc)
 
@@ -89,7 +89,7 @@ To install LighGBM you can follow the [installation guide](https://github.com/Mi
     git clone --recursive https://github.com/Microsoft/LightGBM ; cd LightGBM
     git checkout 73968a96829e212b333c88cd44725c8c39c03ad1
     mkdir build ; cd build
-    cmake .. 
+    cmake ..
     make -j$(nproc)
 
 To install the GPU version:
@@ -114,5 +114,5 @@ Finally, to check that the libraries are correctly installed, try to load them f
 
 To generate png exports with bokeh you have to follow the instructions explained in [this link](http://bokeh.pydata.org/en/0.12.6/docs/user_guide/export.html).
 
-    sudo apt-get install npm 
+    sudo apt-get install npm
     sudo npm install -g phantomjs-prebuilt
