@@ -23,14 +23,14 @@ In the folder [experiment/libs](./experiment/libs) there is the common code for 
 
 In the following table there are summarized the time results of the benchmarks performed in the experiments:
 
-| Dataset | Experiment | Data size | Features | xgb time: CPU (GPU) | xgb_hist time: CPU (GPU) | lgb time: CPU (GPU) |
+| Dataset | Experiment | Data size | Features | xgb time: <br/> CPU (GPU) | xgb_hist time: <br/>CPU (GPU) | lgb time: <br/>CPU (GPU) |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: |
-| Airline | [Link CPU](./experiments/01_airline.ipynb), [link GPU](./experiments/01_airline_GPU.ipynb) | 115069017 | 13 | 2180 (-) | 578 (432.14) | 366 (210.92) |
-| BCI | [Link CPU](./experiments/02_BCI.ipynb), [link GPU](./experiments/02_BCI_GPU.ipynb) | 20497 | 2048 | 11.51 (12.93) | 41.84 (42.69) | 7.31 (2.76)|
-| Football | [Link CPU](./experiments/03_football.ipynb), [link GPU](./experiments/03_football_GPU.ipynb) | 19673 | 46 | 1.78 (.09) | 3.57 (4.58) | 0.64 (0.97) |
-| Planet Kaggle | [Link CPU](./experiments/04_PlanetKaggle.ipynb), [link GPU](./experiments/04_PlanetKaggle_GPU.ipynb) | 40479 | 2048 | 313.89 (-) | 2115.28 (2028.43) | 194.57 (317.68)|
-| Fraud Detection | [Link CPU](./experiments/05_FraudDetection.ipynb), [link GPU](./experiments/05_FraudDetection_GPU.ipynb) | 284807 | 30 | 4.34 (5.80) | 2.01 (1.64) | 0.66 (0.29) |
-| HIGGS | [Link CPU](./experiments/06_HIGGS.ipynb), [link GPU](./experiments/06_HIGGS_GPU.ipynb) | 11000000 | 28 | 653.45 (-) | 74.42 (79.26) | 63.32 (55.90) |
+| Airline | [Link CPU](./experiments/01_airline.ipynb) <br/> [link GPU](./experiments/01_airline_GPU.ipynb) | 115069017 | 13 | 2180 (-) | 578 (432.14) | 366 (210.92) |
+| BCI | [Link CPU](./experiments/02_BCI.ipynb)<br/> [link GPU](./experiments/02_BCI_GPU.ipynb) | 20497 | 2048 | 11.51 (12.93) | 41.84 (42.69) | 7.31 (2.76)|
+| Football | [Link CPU](./experiments/03_football.ipynb)<br/> [link GPU](./experiments/03_football_GPU.ipynb) | 19673 | 46 | 1.78 (.09) | 3.57 (4.58) | 0.64 (0.97) |
+| Planet Kaggle | [Link CPU](./experiments/04_PlanetKaggle.ipynb)<br/> [link GPU](./experiments/04_PlanetKaggle_GPU.ipynb) | 40479 | 2048 | 313.89 (-) | 2115.28 (2028.43) | 194.57 (317.68)|
+| Fraud Detection | [Link CPU](./experiments/05_FraudDetection.ipynb)<br/> [link GPU](./experiments/05_FraudDetection_GPU.ipynb) | 284807 | 30 | 4.34 (5.80) | 2.01 (1.64) | 0.66 (0.29) |
+| HIGGS | [Link CPU](./experiments/06_HIGGS.ipynb)<br/> [link GPU](./experiments/06_HIGGS_GPU.ipynb) | 11000000 | 28 | 653.45 (-) | 74.42 (79.26) | 63.32 (55.90) |
 
 In the next table we summarize the performance results using the [F1-Score](https://en.wikipedia.org/wiki/F1_score).
 
