@@ -23,14 +23,14 @@ In the folder [experiment/libs](./experiment/libs) there is the common code for 
 
 In the following table there are summarized the time results (in seconds) and the ratio of the benchmarks performed in the experiments:
 
-| Dataset | Experiment | Data size | Features | xgb time: <br/> CPU (GPU) | xgb_hist time: <br/>CPU (GPU) | lgb time: <br/>CPU (GPU) | ratio xgb/lgb: <br/> CPU (GPU) | ratio xgb_hist/lgb: <br/> CPU (GPU) |
+| Dataset | Experiment | Data size | Features | xgb time: <br/> CPU (GPU) | xgb_hist time: <br/> CPU (GPU) | lgb time: <br/>CPU (GPU) | ratio xgb/lgb: <br/> CPU (GPU) | ratio xgb_hist/lgb: <br/> CPU <br/> (GPU) |
 | --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| Airline | [Link CPU](./experiments/01_airline.ipynb) <br/> [Link GPU](./experiments/01_airline_GPU.ipynb) | 115069017 | 13 | 4428.49 (-) | 384.74 (432.14) | 258.62 (210.92) | 17.12 (-) | 1.48 (-) |
-| BCI | [Link CPU](./experiments/02_BCI.ipynb)<br/> [Link GPU](./experiments/02_BCI_GPU.ipynb) | 20497 | 2048 | 11.51 (12.93) | 41.84 (42.69) | 7.31 (2.76)| 1.57 (4.67) | 5.72 (15.43) |
-| Football | [Link CPU](./experiments/03_football.ipynb)<br/> [Link GPU](./experiments/03_football_GPU.ipynb) | 19673 | 46 | 1.78 (7.09) | 3.57 (4.58) | 0.64 (0.97) | 2.75 (7.26) | 5.51 (4.69) |
-| Planet Kaggle | [Link CPU](./experiments/04_PlanetKaggle.ipynb)<br/> [Link GPU](./experiments/04_PlanetKaggle_GPU.ipynb) | 40479 | 2048 | 313.89 (-) | 2115.28 (2028.43) | 194.57 (317.68)| 1.61 (-) | 10.87 (6.38) |
-| Fraud Detection | [Link CPU](./experiments/05_FraudDetection.ipynb)<br/> [Link GPU](./experiments/05_FraudDetection_GPU.ipynb) | 284807 | 30 | 4.34 (5.80) | 2.01 (1.64) | 0.66 (0.29) | 6.58 (19.74) | 3.04 (5.58) |
-| HIGGS | [Link CPU](./experiments/06_HIGGS.ipynb)<br/> [Link GPU](./experiments/06_HIGGS_GPU.ipynb) | 11000000 | 28 | 653.45 (-) | 74.42 (79.26) | 63.32 (55.90) | 10.31 (-) | 1.17 (1.41) |
+| Airline | [Link CPU](./experiments/01_airline.ipynb) <br/> [Link GPU](./experiments/01_airline_GPU.ipynb) | 115069017 | 13 | 4428.49 (-) | 384.74 (432.14) | 258.62 (210.92) | 17.12 (-) | 1.48 <br/>(2.04) |
+| BCI | [Link CPU](./experiments/02_BCI.ipynb)<br/> [Link GPU](./experiments/02_BCI_GPU.ipynb) | 20497 | 2048 | 11.51 (12.93) | 41.84 (42.69) | 7.31 (2.76)| 1.57 (4.67) | 5.72 <br/>(15.43) |
+| Football | [Link CPU](./experiments/03_football.ipynb)<br/> [Link GPU](./experiments/03_football_GPU.ipynb) | 19673 | 46 | 1.78 (7.09) | 3.57 (4.58) | 0.64 (0.97) | 2.75 (7.26) | 5.51 <br/>(4.69) |
+| Planet Kaggle | [Link CPU](./experiments/04_PlanetKaggle.ipynb)<br/> [Link GPU](./experiments/04_PlanetKaggle_GPU.ipynb) | 40479 | 2048 | 313.89 (-) | 2115.28 (2028.43) | 194.57 (317.68)| 1.61 (-) | 10.87 <br/>(6.38) |
+| Fraud Detection | [Link CPU](./experiments/05_FraudDetection.ipynb)<br/> [Link GPU](./experiments/05_FraudDetection_GPU.ipynb) | 284807 | 30 | 4.34 (5.80) | 2.01 (1.64) | 0.66 (0.29) | 6.58 (19.74) | 3.04 <br/> (5.58) |
+| HIGGS | [Link CPU](./experiments/06_HIGGS.ipynb)<br/> [Link GPU](./experiments/06_HIGGS_GPU.ipynb) | 11000000 | 28 | 653.45 (-) | 74.42 (79.26) | 63.32 (55.90) | 10.31 (-) | 1.17 <br/> (1.41) |
 
 In the next table we summarize the performance results using the [F1-Score](https://en.wikipedia.org/wiki/F1_score).
 
