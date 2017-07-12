@@ -11,7 +11,7 @@ git clone https://github.com/Azure/fast_retraining.git
 
 Create a conda environment if you haven't already done so. The command below creates a python 3 environment called strata.
 ```bash
-conda create --name strata python=3 anaconda
+conda create --name strata python=3.5 anaconda
 ```
 
 Edit [activate_env_vars.sh](environment/activate_env_vars.sh ) and [deactivate_env_vars.sh](environment/deactivate_env_vars.sh )
@@ -57,6 +57,11 @@ source deactivate
 Enter the environment again
 ```bash
 source activate strata
+```
+
+Finally, to register the environment in the jupyter notebook:
+```bash
+python -m ipykernel install --user --name strata --display-name "Python Strata"
 ```
 
 ## Installation of boosted tree libraries
