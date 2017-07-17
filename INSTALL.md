@@ -9,9 +9,9 @@ Clone this repo to your desired location
 git clone https://github.com/Azure/fast_retraining.git
 ```
 
-Create a conda environment if you haven't already done so. The command below creates a python 3 environment called strata.
+Create a conda environment if you haven't already done so. The command below creates a python 3 environment called fast.
 ```bash
-conda create --name strata python=3.5 anaconda
+conda create --name fast python=3.5 anaconda
 ```
 
 Edit [activate_env_vars.sh](environment/activate_env_vars.sh ) and [deactivate_env_vars.sh](environment/deactivate_env_vars.sh )
@@ -24,7 +24,7 @@ apt-get install jq
 
 Activate the conda environment and install the requirements.
 ```bash
-source activate strata
+source activate fast
 pip install -r requirements.txt
 ```
 
@@ -56,12 +56,12 @@ source deactivate
 
 Enter the environment again
 ```bash
-source activate strata
+source activate fast
 ```
 
 Finally, to register the environment in the jupyter notebook:
 ```bash
-python -m ipykernel install --user --name strata --display-name "Python Strata"
+python -m ipykernel install --user --name fast --display-name "Python Strata"
 ```
 
 ## Installation of boosted tree libraries
