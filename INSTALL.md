@@ -61,7 +61,7 @@ source activate fast
 
 Finally, to register the environment in the jupyter notebook:
 ```bash
-python -m ipykernel install --user --name fast --display-name "Python Strata"
+python -m ipykernel install --user --name fast --display-name "Python Fast"
 ```
 
 ## Installation of boosted tree libraries
