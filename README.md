@@ -2,6 +2,8 @@
 
 In this repo we compare two of the fastest boosted decision tree libraries: [XGBoost](https://github.com/dmlc/xgboost) and [LightGBM](https://github.com/microsoft/LightGBM). We will evaluate them across datasets of several domains and different sizes.
 
+On July 25, 2017, we published a blog post evaluating both libraries and discussing the benchmark results. The post is [Lessons Learned From Benchmarking Fast Machine Learning Algorithms](https://blogs.technet.microsoft.com/machinelearning/2017/07/25/lessons-learned-benchmarking-fast-machine-learning-algorithms/).
+
 ## Installation and Setup
 
 The installation instructions can be found [here](./INSTALL.md).
