@@ -11,3 +11,4 @@ tensorflow>=1.1.0
 Keras>=2.0.3
 memory_profiler>=0.47
 psutil>=5.2.2
+ipykernel>=4.6.1
