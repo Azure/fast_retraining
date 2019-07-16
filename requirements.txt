@@ -7,8 +7,13 @@ matplotlib>=1.5.3
 arff>=0.9
 glob2>=0.5
 ipython>=6.1.0
-tensorflow>=1.1.0
 Keras>=2.0.3
 memory_profiler>=0.47
 psutil>=5.2.2
 ipykernel>=4.6.1
+numpy>=1.14.5
+wrapt>=1.11.2
+setuptools>=41.0.0
+msgpack>=0.6.1
+tensorflow-gpu>=1.1.0
+
