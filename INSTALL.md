@@ -119,5 +119,6 @@ Finally, to check that the libraries are correctly installed, try to load them f
 
 To generate png exports with bokeh you have to follow the instructions explained in [this link](http://bokeh.pydata.org/en/0.12.6/docs/user_guide/export.html).
 
+    sudo apt-get install nodejs
     sudo apt-get install npm
     sudo npm install -g phantomjs-prebuilt
