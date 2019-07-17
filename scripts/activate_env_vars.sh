@@ -1,9 +1,7 @@
 #!/bin/sh
 
 # The location of the repository on the host machine
-REPOSPATH=$HOME'/repos/'
-export PROJECTPATH=$REPOSPATH'fast_retraining'
-
+export PROJECTPATH=$(pwd)
 
 # Add custom libraries to the python path
 export OLD_PYTHON_PATH=$PYTHONPATH
@@ -14,5 +12,5 @@ export OLD_PATH=$PATH
 export PATH=$PATH:PROJECTPATH
 
 # The mounting location for the data
-export MOUNT_POINT=/fileshare               
+source ${PROJECTPATH}/.env             
 echo Me Gusta!
