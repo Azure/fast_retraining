@@ -1,0 +1,28 @@
+name: fast_retraining_env
+channels:
+ - conda-forge
+dependencies:
+  - python=3.6.8
+  - jupyter
+  - ipykernel
+  - scikit-learn>=0.18.1
+  - scipy>=0.19.0
+  - tqdm>=4.11.2
+  - bokeh>=0.12.6
+  - selenium>=3.4.3
+  - matplotlib>=1.5.3
+  - glob2>=0.5
+  - ipython>=6.1.0
+  - Keras>=2.0.3
+  - memory_profiler>=0.47
+  - psutil>=5.2.2
+  - ipykernel>=4.6.1
+  - numpy>=1.14.5
+  - wrapt>=1.11.2
+  - setuptools>=41.0.0
+  - tensorflow-gpu>=1.1.0
+  - pip:
+    - toolz
+    - msgpack>=0.6.1
+
+  

@@ -94,6 +94,10 @@ experiments/*.svg
 experiments/*.pk
 Untitled.ipynb
 
+#####
+.vscode
+.env
+
 
 
 

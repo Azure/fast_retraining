@@ -9,59 +9,37 @@ Clone this repo to your desired location
 git clone https://github.com/Azure/fast_retraining.git
 ```
 
-Create a conda environment if you haven't already done so. The command below creates a python 3 environment called fast.
+Next you need to take the .env_template file, edit it and save it as .env. This simply contains the location of where you would like the data to be downloaded to.
+
+ By running the following commands a script is executed that creates the Python 3.6 environment with the required dependecies but also sets up the environment variables.
 ```bash
-conda create --name fast python=3.5 anaconda
+chmod +x scripts/setup.sh
+./scripts/setup.sh
 ```
 
-Edit [activate_env_vars.sh](environment/activate_env_vars.sh ) and [deactivate_env_vars.sh](environment/deactivate_env_vars.sh )
-so that they contain the correct information.
-
-Install command line json parser
+To enter the environment run
 ```bash
-apt-get install jq
+conda activate ./fast_retraining_env
 ```
 
-Activate the conda environment and install the requirements.
+To register the environment in the jupyter notebook:
 ```bash
-source activate fast
-pip install -r requirements.txt
+python -m ipykernel install --user --name fast --display-name "Python Fast"
 ```
 
-Get the currently activated environment and assign it to env_path.
-Get info of current env and output to json | look for default_prefix element in JSON | remove all quotes
+Then from inside the environment to start the Jupyter server
 ```bash
-env_path=$(conda info --json | jq '.default_prefix' | tr -d '"')
+jupyter notebook --no-browser
 ```
 
-Make sure you are in the environment folder of the project and run the following
+If you need to specify a different port and accept connections from any location
 ```bash
-activate_script_path=$(readlink -f activate_env_vars.sh)
-deactivate_script_path=$(readlink -f deactivate_env_vars.sh)
-```
-
-Then we create the activation and deactivation scripts and make sure they point to our now modified activation 
-and deactivation scripts in our environment folder
-```bash
-mkdir -p $env_path/etc/conda/activate.d
-mkdir -p $env_path/etc/conda/deactivate.d
-echo 'source '$activate_script_path >> $env_path/etc/conda/activate.d/env_vars.sh
-echo 'source '$deactivate_script_path >> $env_path/etc/conda/deactivate.d/env_vars.sh
+jupyter notebook --ip=0.0.0.0 --port=9999 --no-browser
 ```
 
 Exit the environment
 ```bash
-source deactivate
-```
-
-Enter the environment again
-```bash
-source activate fast
-```
-
-Finally, to register the environment in the jupyter notebook:
-```bash
-python -m ipykernel install --user --name fast --display-name "Python Fast"
+conda deactivate
 ```
 
 ## Installation of boosted tree libraries
